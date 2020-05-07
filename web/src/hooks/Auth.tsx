@@ -13,6 +13,7 @@ interface LogInInputDTO {
 }
 
 interface AuthContext {
+  token: string;
   user: object;
   logIn(data: LogInInputDTO): Promise<void>;
   logOut(): void;
@@ -50,7 +51,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   return (
-    <Context.Provider value={{ user: state.user, logIn, logOut }}>
+    <Context.Provider value={{ ...state, logIn, logOut }}>
       {children}
     </Context.Provider>
   );

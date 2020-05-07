@@ -40,11 +40,13 @@ interface Balance {
 const Dashboard: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [balance, setBalance] = useState<Balance>({} as Balance);
-  const { user } = useAuth();
+  const { token } = useAuth();
 
   useEffect(() => {
     async function loadTransactions(): Promise<void> {
-      const { data } = await api.get('transactions'); // TODO Pass authorization
+      const { data } = await api.get('transactions', {
+        headers: { authorization: `Bearer ${token}` },
+      });
       setTransactions(
         data.transactions.map((transaction: TransactionInfo) => {
           const date = new Date(transaction.created_at);
@@ -71,7 +73,7 @@ const Dashboard: React.FC = () => {
     }
 
     loadTransactions();
-  }, []);
+  }, [token]);
 
   return (
     <>
