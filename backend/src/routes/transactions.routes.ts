@@ -13,16 +13,19 @@ const upload = multer(uploadConfig);
 
 transactionsRouter.get('/', async (request, response) => {
   const transactionsRepository = getCustomRepository(TransactionsRepository);
+  const user_id = request.user.id;
   const transactions = {
-    transactions: await transactionsRepository.find(),
-    balance: await transactionsRepository.getBalance(),
+    transactions: await transactionsRepository.findByUserId(user_id),
+    balance: await transactionsRepository.getBalance(user_id),
   };
   return response.json(transactions);
 });
 
 transactionsRouter.post('/', async (request, response) => {
   const { title, value, type, category } = request.body;
+  const user_id = request.user.id;
   const transaction = await new CreateTransactionService().execute({
+    user_id,
     title,
     value,
     type,
@@ -33,7 +36,8 @@ transactionsRouter.post('/', async (request, response) => {
 
 transactionsRouter.delete('/:id', async (request, response) => {
   const { id } = request.params;
-  await new DeleteTransactionService().execute(id);
+  const user_id = request.user.id;
+  await new DeleteTransactionService().execute({ user_id, id });
   return response.sendStatus(204);
 });
 
@@ -41,9 +45,12 @@ transactionsRouter.post(
   '/import',
   upload.single('file'),
   async (request, response) => {
-    const transactions = await new ImportTransactionsService().execute(
-      request.file.filename,
-    );
+    const { filename } = request.file;
+    const user_id = request.user.id;
+    const transactions = await new ImportTransactionsService().execute({
+      fileName: filename,
+      user_id,
+    });
     return response.status(201).json(transactions);
   },
 );

@@ -16,6 +16,11 @@ interface TransactionCreationDTO {
   category: string;
 }
 
+interface TransactionImportationDTO {
+  fileName: string;
+  user_id: string;
+}
+
 const requiredFields = ['title', 'value', 'type', 'category'];
 
 class ImportTransactionsService {
@@ -62,7 +67,10 @@ class ImportTransactionsService {
     });
   }
 
-  async execute(fileName: string): Promise<Transaction[]> {
+  async execute({
+    user_id,
+    fileName,
+  }: TransactionImportationDTO): Promise<Transaction[]> {
     const filePath = path.join(uploadConfig.directory, fileName);
     const fileContent = await fs.promises.readFile(filePath);
     const dtos = await this.parseCsv(fileContent);
@@ -72,7 +80,7 @@ class ImportTransactionsService {
     for (let index = 0; index < dtos.length; index++) {
       const dto = dtos[index];
       // eslint-disable-next-line no-await-in-loop
-      const transaction = await creator.execute(dto);
+      const transaction = await creator.execute({ ...dto, user_id });
       transactions.push(transaction);
     }
     return transactions;

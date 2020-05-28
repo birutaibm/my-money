@@ -4,7 +4,9 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import Transaction from './Transaction';
 
 @Entity('users')
 export default class User {
@@ -16,6 +18,9 @@ export default class User {
 
   @Column()
   password: string;
+
+  @OneToMany(() => Transaction, transaction => transaction.user)
+  transactions: Transaction[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

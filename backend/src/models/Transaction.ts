@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 
 import Category from './Category';
+import User from './User';
 
 @Entity('transactions')
 class Transaction {
@@ -27,9 +28,16 @@ class Transaction {
   @Column()
   category_id: string;
 
-  @ManyToOne(() => Category, category => category.transaction, { eager: true })
+  @ManyToOne(() => Category, category => category.transactions, { eager: true })
   @JoinColumn({ name: 'category_id' })
   category: Category;
+
+  @Column()
+  user_id: string;
+
+  @ManyToOne(() => User, user => user.transactions)
+  @JoinColumn({ name: 'category_id' })
+  user: User;
 
   @CreateDateColumn()
   created_at: Date;
