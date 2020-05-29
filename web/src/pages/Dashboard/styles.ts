@@ -85,11 +85,13 @@ export const TableContainer = styled.section`
     }
 
     td:first-child {
-      border-radius: 8px 0 0 8px;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
     }
 
     td:last-child {
-      border-radius: 0 8px 8px 0;
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
     }
   }
 `;

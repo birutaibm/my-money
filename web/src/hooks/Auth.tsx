@@ -35,13 +35,19 @@ const storageKey = '@MyMoney:Auth';
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [state, setState] = useState(() => {
-    const data = localStorage.getItem(storageKey);
-    return data ? JSON.parse(data) : {};
+    const value = localStorage.getItem(storageKey);
+    if (value) {
+      const data = JSON.parse(value);
+      api.defaults.headers.authorization = `Bearer ${data.token}`;
+      return data;
+    }
+    return {};
   });
 
   const logIn = useCallback(async (info: LogInInputDTO) => {
     const { data } = await api.post('sessions', info);
     localStorage.setItem(storageKey, JSON.stringify(data));
+    api.defaults.headers.authorization = `Bearer ${data.token}`;
     setState(data);
   }, []);
 
