@@ -50,7 +50,7 @@ const LogIn: React.FC = () => {
         const errors = await getFormatErrors(data);
         formRef.current.setErrors(errors);
 
-        if (Object.length !== 0) {
+        if (Object.keys(errors).length === 0) {
           try {
             await logIn(data);
           } catch (error) {
