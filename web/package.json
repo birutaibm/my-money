@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@unform/core": "^2.1.0",
-    "@unform/web": "^2.1.0",
+    "@unform/web": "^2.1.6",
     "axios": "^0.21.1",
     "filesize": "^6.3.0",
     "history": "^4.10.1",
