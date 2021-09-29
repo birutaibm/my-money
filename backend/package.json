@@ -24,7 +24,7 @@
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.0.2",
     "typeorm": "^0.2.35",
-    "uuidv4": "^6.2.11"
+    "uuidv4": "^6.2.12"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
