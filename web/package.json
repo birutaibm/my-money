@@ -14,16 +14,19 @@
     "react-dropzone": "^10.2.2",
     "react-icons": "^3.11.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.4",
+    "react-scripts": "4.0.0",
     "styled-components": "^5.1.0",
     "typescript": "~3.9.10",
-    "yup": "^0.28.5"
+    "yup": "^0.28.5",
+    "@snyk/protect": "latest"
   },
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepare": "yarn run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "browserslist": {
     "production": [
@@ -64,5 +67,6 @@
     "prettier": "^2.0.4",
     "react-app-rewired": "^2.1.5",
     "ts-jest": "^25.4.0"
-  }
+  },
+  "snyk": true
 }
