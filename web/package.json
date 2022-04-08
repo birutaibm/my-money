@@ -18,7 +18,7 @@
     "styled-components": "^5.3.1",
     "typescript": "~3.9.10",
     "yup": "^0.30.0",
-    "@snyk/protect": "1.873.0"
+    "@snyk/protect": "1.878.0"
   },
   "scripts": {
     "start": "react-app-rewired start",
